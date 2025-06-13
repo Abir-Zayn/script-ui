@@ -9,6 +9,7 @@ generator client {
 
 model Note {
   id        String     @id @default(uuid())
+  heading   String?
   text      String
   author    User   @relation(fields: [authorId], references: [id])
   authorId  String

@@ -157,3 +157,79 @@
 .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: hsl(222.2 47.4% 11.2%);
 }
+
+/* Add this to your globals.css file */
+
+/* Base styling for the Tiptap editor */
+.ProseMirror {
+  min-height: 200px;
+  padding: 1rem;
+  outline: none;
+}
+
+/* Placeholder styling */
+.ProseMirror p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
+
+/* Properly style the editor content */
+.ProseMirror:focus {
+  outline: none;
+}
+
+/* Optional: Add styling for focus state */
+.tiptap-focus {
+  @apply ring-2 ring-primary;
+}
+
+/* Ordered list styling */
+.ProseMirror ol {
+  list-style: decimal;
+  margin-left: 1.5rem;
+  padding-left: 0;
+}
+
+.ProseMirror ol li {
+  display: list-item;
+  margin-bottom: 0.5rem;
+}
+
+/* Bullet list styling */
+.ProseMirror ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+  padding-left: 0;
+}
+
+.ProseMirror ul li {
+  display: list-item;
+  margin-bottom: 0.5rem;
+}
+
+/* Task list styling */
+.ProseMirror ul[data-type="taskList"] {
+  list-style: none;
+  margin-left: 0;
+}
+
+.ProseMirror ul[data-type="taskList"] li {
+  display: flex;
+  align-items: center;
+}
+
+.ProseMirror ul[data-type="taskList"] li label {
+  margin-right: 0.5rem;
+}
+
+/* Nested lists */
+.ProseMirror ol ol,
+.ProseMirror ul ul,
+.ProseMirror ol ul,
+.ProseMirror ul ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
