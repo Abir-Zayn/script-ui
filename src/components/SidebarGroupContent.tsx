@@ -7,8 +7,9 @@ import { useEffect, useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
 import SelectNoteButton from './SelectNoteButton';
 import DeleteNoteButton from './DeleteNoteButton';
+
 type Props = {
-  notes: Note[];
+  notes: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId'>[];
 }
 
 function SidebarGroupContent({ notes }: Props) {
@@ -21,12 +22,10 @@ function SidebarGroupContent({ notes }: Props) {
 
   const fuse = useMemo(() => {
     return new Fuse(localNotes, {
-      keys: ["text"],
+      keys: ["heading"],
       threshold: 0.4,
     })
   }, [localNotes]);
-
-
 
   const filteredNotes = searchText ? fuse.search(searchText)
     .map(result => result.item) : localNotes;
@@ -35,19 +34,17 @@ function SidebarGroupContent({ notes }: Props) {
     setLocalNotes(prevNotes => prevNotes.filter(note => note.id !== noteId));
   }
 
-
   return <SidebarGroupContentShadCN>
     <div className='relative flex items-center'>
       <SearchIcon className='absolute left-2 size-2' />
       <Input
         className='bg-muted pl-8'
-        placeholder='Search notes...'
+        placeholder='Search notes by heading...'
         type='text'
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
     </div>
-
 
     <SidebarMenu className='mt-4'>
       {filteredNotes.map((note) => (

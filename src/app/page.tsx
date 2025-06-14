@@ -17,12 +17,23 @@ async function HomePage({ searchParams }: Props) {
   // Only query the database if we have a valid noteId
   let note = null;
   if (noteId && noteId.trim() !== "" && user) {
-    note = await prisma.note.findUnique({
-      where: {
-        id: noteId,
-        authorId: user.id,
-      },
-    });
+    try {
+      note = await prisma.note.findUnique({
+        where: {
+          id: noteId,
+          authorId: user.id,
+        },
+        select: {
+          id: true,
+          heading: true,
+          text: true,
+          createdAt: true,
+          updatedAt: true,
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching note:", error);
+    }
   }
 
   return (
@@ -36,6 +47,7 @@ async function HomePage({ searchParams }: Props) {
         <NoteTextInput
           noteId={noteId}
           startingNoteText={note?.text || ""}
+          startingNoteHeading={note?.heading || ""}
         />
       ) : (
         <div className="flex h-full w-full max-w-4xl items-center justify-center text-muted-foreground">

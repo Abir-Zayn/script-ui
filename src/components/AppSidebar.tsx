@@ -12,32 +12,33 @@ import { Note } from "@prisma/client";
 import Link from "next/link";
 import SidebarGroupContent from "./SidebarGroupContent";
 
-
 async function AppSidebar() {
     const user = await getUser();
-    let notes: Note[] = [];
+    let notes: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId'>[] = [];
 
     if (user) {
         notes = await prisma.note.findMany({
             where: {
                 authorId: user.id,
             },
+            select: {
+                id: true,
+                heading: true,
+                createdAt: true,
+                updatedAt: true,
+                authorId: true,
+            },
             orderBy: {
                 updatedAt: 'desc',
             },
-
         })
     }
-
 
     return (
         <Sidebar>
             <SidebarContent className="custom-scrollbar">
                 <SidebarGroup>
                     <SidebarGroupLabel className="mb-2 mt-2 text-lg font-semibold">
-
-                        {/* {user ? `Welcome, ${user.email}` : "Welcome to Script UI"} */}
-                        {/* Display the notes of the logged-in user */}
                         {
                             user ? ("Your Notes") : (
                                 <p>
@@ -45,7 +46,6 @@ async function AppSidebar() {
                                 </p>
                             )
                         }
-
                     </SidebarGroupLabel>
                     {user && <SidebarGroupContent notes={notes} />}
                 </SidebarGroup>

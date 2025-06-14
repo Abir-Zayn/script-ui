@@ -4,7 +4,7 @@ import { getUser } from "@/auth/server";
 import { prisma } from "@/db/prisma";
 import { handleError } from "@/lib/utils";
 
-export const updateNoteAction = async (noteId: string, text: string) => {
+export const updateNoteAction = async (noteId: string, heading: string, text: string) => {
     try {
         const user = await getUser();
         if (!user) {
@@ -20,7 +20,10 @@ export const updateNoteAction = async (noteId: string, text: string) => {
                 id: noteId,
                 authorId: user.id // Ensure user owns the note
             },
-            data: { text },
+            data: { 
+                heading: heading.trim() || null, // Trim heading and allow null
+                text: text
+             },
         });
 
         console.log('Note updated successfully:', updatedNote.id);
@@ -42,6 +45,7 @@ export const createNoteAction = async (noteId: string) => {
             data: {
                 id: noteId,
                 authorId: user.id,
+                heading: null, // Start with no heading
                 text: "",
             },
         });

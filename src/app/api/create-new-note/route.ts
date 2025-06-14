@@ -8,6 +8,7 @@ export async function POST(request: NextRequest) {
     const { id } = await prisma.note.create({
         data: {
             authorId: userId,
+            heading: null, // Start with no heading
             text: "",
         },
     });
