@@ -11,25 +11,29 @@ export const updateNoteAction = async (noteId: string, heading: string, text: st
             throw new Error('User not authenticated');
         }
 
-        // Log for debugging
-        console.log('Updating note:', { noteId, text: text.substring(0, 50) + '...' });
+        console.log('Upserting note:', { noteId, heading, text: text.substring(0, 50) + '...' });
 
-        // Update the note in the database
-        const updatedNote = await prisma.note.update({
+        const note = await prisma.note.upsert({
             where: {
                 id: noteId,
-                authorId: user.id // Ensure user owns the note
             },
-            data: { 
-                heading: heading.trim() || null, // Trim heading and allow null
+            update: {
+                heading: heading.trim() || null,
+                text: text,
+                updatedAt: new Date()
+            },
+            create: {
+                id: noteId,
+                authorId: user.id,
+                heading: heading.trim() || null,
                 text: text
-             },
+            }
         });
 
-        console.log('Note updated successfully:', updatedNote.id);
+        console.log('Note upserted successfully:', note.id);
         return { errorMessage: null };
     } catch (error) {
-        console.error('Error updating note:', error);
+        console.error('Error upserting note:', error);
         return handleError(error);
     }
 }
