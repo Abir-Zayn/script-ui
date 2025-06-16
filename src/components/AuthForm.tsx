@@ -62,9 +62,9 @@ function AuthForm({ type }: Props) {
         // Form for login or signup
         // Uses handleSubmit to manage form submission
         <form action={handleSubmit}>
-            <CardContent className='grid w-full items-center gap-6'>
-                <div className='flex flex-col space-y-1.5'>
-                    <Label htmlFor='email'>Email</Label>
+            <CardContent className='space-y-4 pt-0'>
+                <div className='space-y-2'>
+                    <Label htmlFor='email' className='text-sm font-medium text-foreground'>Email</Label>
                     <Input
                         id='email'
                         name='email'
@@ -72,10 +72,11 @@ function AuthForm({ type }: Props) {
                         placeholder='Enter your email'
                         required
                         disabled={isPending}
+                        className='h-11'
                     />
                 </div>
-                <div className='flex flex-col space-y-1.5'>
-                    <Label htmlFor='password'>Password</Label>
+                <div className='space-y-2'>
+                    <Label htmlFor='password' className='text-sm font-medium text-foreground'>Password</Label>
                     <Input
                         id='password'
                         name='password'
@@ -83,25 +84,30 @@ function AuthForm({ type }: Props) {
                         placeholder='Password'
                         required
                         disabled={isPending}
+                        className='h-11'
                     />
                 </div>
             </CardContent>
-            <CardFooter className='mt-6 flex flex-col gap-6'>
-                <Button type='submit' className='w-full'>
-                    {/* Show spinner during pending state, otherwise show button text */}
-                    {isPending ? <Loader2 className='animate-spin' /> : isLoginForm ? 'Login' : 'Sign Up'}
+            <CardFooter className='flex flex-col space-y-4 pt-10'>
+                <Button
+                    type='submit'
+                    className='w-full h-15 font-medium'
+                    disabled={isPending}
+                >
+                    {isPending ? (
+                        <Loader2 className='w-4 h-4 animate-spin' />
+                    ) : (
+                        isLoginForm ? 'Sign In' : 'Create Account'
+                    )}
                 </Button>
                 {/* Link to switch between login/signup */}
-                <p className='text-xs'>
-                    {
-                        isLoginForm ? "Don't have an account?" :
-                            "Already have an account?"
-                    }{" "}
+                <p className='text-sm text-center text-muted-foreground'>
+                    {isLoginForm ? "Don't have an account?" : "Already have an account?"}{" "}
                     <Link
                         href={isLoginForm ? '/signup' : '/login'}
-                        className='text-blue-500 hover:text-blue-700 font-semibold'
+                        className='text-primary hover:text-primary/90 font-medium underline-offset-4 hover:underline transition-colors'
                     >
-                        {isLoginForm ? 'Sign Up' : 'Login'}
+                        {isLoginForm ? 'Sign up' : 'Sign in'}
                     </Link>
                 </p>
             </CardFooter>

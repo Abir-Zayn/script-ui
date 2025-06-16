@@ -76,13 +76,9 @@ function Header({ user }: Props) {
                                     className="rounded-full"
                                     priority
                                     alt="App Logo"
-                                    width={50}
-                                    height={40}
+                                    width={80}
+                                    height={30}
                                 />
-                                <h1 className='flex flex-col pb-1 text-xl lg:text-2xl font-semibold leading-5 text-left'>
-                                    Script
-                                    <span className="text-left">Universe</span>
-                                </h1>
                             </Link>
                         </div>
                     </div>
