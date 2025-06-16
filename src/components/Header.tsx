@@ -6,8 +6,8 @@ import React, { useState, useEffect } from 'react'
 import { Button } from './ui/button';
 import { DarkModeToggle } from './DarkModeToggle';
 import LogoutButton from './LogoutButton';
-import { SidebarTrigger } from './ui/sidebar';
 import { Menu, X, PanelLeft } from "lucide-react";
+import { useSidebar } from './ui/sidebar';
 
 type Props = {
     user?: any;
@@ -16,6 +16,9 @@ type Props = {
 function Header({ user }: Props) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
+
+    // Get sidebar functions if available (only when user is logged in)
+    const sidebarContext = user ? useSidebar() : null;
 
     useEffect(() => {
         const handleScroll = () => {
@@ -49,26 +52,25 @@ function Header({ user }: Props) {
 
                     {/* Left Section: Sidebar Trigger + Logo */}
                     <div className="flex items-center gap-4">
-                        {/* Sidebar Trigger - Always visible with custom styling */}
-                        <div className="flex items-center">
-                            <SidebarTrigger className="p-2 hover:bg-muted rounded-md transition-colors duration-200" />
-                            {/* Fallback trigger if SidebarTrigger doesn't work */}
+                        {/* Sidebar Trigger - Only show when user is logged in */}
+                        {user && sidebarContext && (
                             <Button
                                 variant="ghost"
                                 size="sm"
-                                className="p-2 h-auto w-auto md:hidden"
+                                onClick={sidebarContext.toggleSidebar}
+                                className="p-2 h-9 w-9 hover:bg-muted rounded-md transition-colors duration-200"
                                 aria-label="Toggle sidebar"
                             >
-                                <PanelLeft className="h-5 w-5" />
+                                <PanelLeft className="h-4 w-4" />
                             </Button>
-                        </div>
+                        )}
 
                         {/* Logo Section - Fades out on scroll */}
                         <div className={`
                             flex items-center transition-all duration-300 ease-in-out
                             ${isScrolled ? 'opacity-0 translate-x-[-20px]' : 'opacity-100 translate-x-0'}
                         `}>
-                            <Link href="/" className='flex items-end gap-2'>
+                            <Link href={user ? "/" : "/landing"} className='flex items-end gap-2'>
                                 <Image
                                     src="/appLogo.png"
                                     className="rounded-full"

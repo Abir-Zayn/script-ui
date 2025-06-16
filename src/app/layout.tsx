@@ -32,17 +32,25 @@ export default async function RootLayout({
           disableTransitionOnChange={true}
         >
           <NoteProvider>
-            <SidebarProvider>
-              <AppSidebar />
-              <div className="flex min-h-screen w-full flex-col">
-                {/* Pass user prop to Header */}
-                <Header user={user} />
-                <main className="flex flex-1 flex-col px-4 pt-10 xl:px-8">
+            {
+              user ? (
+                <SidebarProvider>
+                  <AppSidebar />
+                  <div className="flex min-h-screen w-full flex-col">
+                    <main className="flex flex-1 flex-col px-4 pt-10 xl:px-8">
+                      {children}
+                    </main>
+                    <Toaster />
+                  </div>
+                </SidebarProvider>
+              ) : (
+                <div className="min-h-screen">
                   {children}
-                </main>
-                <Toaster />
-              </div>
-            </SidebarProvider>
+                  <Toaster />
+                </div>
+              )
+
+            }
           </NoteProvider>
         </ThemeProvider>
       </body>

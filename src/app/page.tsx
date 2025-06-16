@@ -3,15 +3,21 @@ import AskAiButton from "@/components/AskAiButton";
 import NewNoteButton from "@/components/NewNoteButton";
 import NoteTextInput from "@/components/NoteTextInput";
 import { prisma } from "@/db/prisma";
+import { redirect } from "next/navigation";
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 async function HomePage({ searchParams }: Props) {
-  const noteIdParam = (await searchParams).noteId;
   const user = await getUser();
 
+  // if there is no logged in user, redirect to landing page
+  if (!user) {
+    redirect("/landing");
+  }
+
+  const noteIdParam = (await searchParams).noteId;
   const noteId = Array.isArray(noteIdParam) ? noteIdParam![0] : noteIdParam || "";
 
   // Only query the database if we have a valid noteId
