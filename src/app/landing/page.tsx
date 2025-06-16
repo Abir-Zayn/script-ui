@@ -1,8 +1,8 @@
 import Header from '@/components/Header'
-import Hero from '@/components/LandingPageHero'
-import Features from '@/components/LandingPageFeatures'
-import LandingPageCard from '@/components/landingPageCard'
-import Footer from '@/components/LandingPageFooter'
+import Hero from '@/app/landing/components/LandingPageHero'
+import Features from '@/app/landing/components/LandingPageFeatures'
+import LandingPageCard from '@/app/landing/components/landingPageCard'
+import Footer from '@/app/landing/components/LandingPageFooter'
 import { getUser } from '@/auth/server'
 
 //Landing page anatomy
