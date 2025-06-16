@@ -1,4 +1,6 @@
 import { ArrowRight, FileText, Zap } from "lucide-react";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 const Hero = () => {
     return (
@@ -6,31 +8,37 @@ const Hero = () => {
             <div className="max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="text-center lg:text-left animate-fade-in">
-                        <h1 className="text-5xl lg:text-6xl font-bold text-black leading-tight mb-6">
+                        <h1 className="text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
                             Transform your
-                            <span className="text-gray-600 block">chaotic thoughts</span>
+                            <span className="text-orange-400 block">chaotic thoughts</span>
                             into organized notes
                         </h1>
-                        <p className="text-xl text-gray-600 mb-8 max-w-2xl">
+                        <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
                             QuickNotes helps you capture, organize, and find your ideas effortlessly.
                             Say goodbye to scattered thoughts and hello to clarity.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <button className="bg-black text-white px-8 py-4 rounded-lg hover:bg-gray-800 transition-all hover:scale-105 flex items-center justify-center gap-2 text-lg font-medium">
-                                Start organizing now
-                                <ArrowRight size={20} />
-                            </button>
-                            <button className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg hover:border-black transition-colors text-lg font-medium">
+                            <Button asChild size="lg" className="hover:scale-105 transition-transform">
+                                <Link href="/signup" className="flex items-center gap-2">
+                                    Start organizing
+                                    <ArrowRight size={20} />
+                                </Link>
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="lg"
+                                className="hover:scale-105 transition-transform"
+                            >
                                 Watch demo
-                            </button>
+                            </Button>
                         </div>
-                        <div className="flex items-center justify-center lg:justify-start gap-8 mt-12 text-sm text-gray-500">
+                        <div className="flex items-center justify-center lg:justify-start gap-8 mt-12 text-sm text-muted-foreground">
                             <div className="flex items-center gap-2">
-                                <Zap size={16} className="text-black" />
+                                <Zap size={16} className="text-primary" />
                                 <span>Lightning fast</span>
                             </div>
                             <div className="flex items-center gap-2">
-                                <FileText size={16} className="text-black" />
+                                <FileText size={16} className="text-primary" />
                                 <span>Rich formatting</span>
                             </div>
                         </div>
@@ -38,54 +46,54 @@ const Hero = () => {
 
                     <div className="relative animate-scale-in">
                         <div className="relative">
-                            {/* Floating note cards */}
-                            <div className="absolute top-10 left-10 bg-white p-4 rounded-lg shadow-lg border border-gray-200 transform rotate-12 hover:rotate-6 transition-transform">
+                            {/* Floating note cards - Dark mode compatible */}
+                            <div className="absolute top-10 left-10 bg-card border border-border p-4 rounded-lg shadow-lg transform rotate-12 hover:rotate-6 transition-transform">
                                 <div className="w-32 h-20">
-                                    <div className="w-full h-2 bg-gray-300 rounded mb-2"></div>
-                                    <div className="w-3/4 h-1 bg-gray-200 rounded mb-1"></div>
-                                    <div className="w-full h-1 bg-gray-200 rounded mb-1"></div>
-                                    <div className="w-1/2 h-1 bg-gray-200 rounded"></div>
+                                    <div className="w-full h-2 bg-muted rounded mb-2"></div>
+                                    <div className="w-3/4 h-1 bg-muted-foreground/20 rounded mb-1"></div>
+                                    <div className="w-full h-1 bg-muted-foreground/20 rounded mb-1"></div>
+                                    <div className="w-1/2 h-1 bg-muted-foreground/20 rounded"></div>
                                 </div>
                             </div>
 
-                            <div className="absolute top-32 right-8 bg-white p-4 rounded-lg shadow-lg border border-gray-200 transform -rotate-6 hover:rotate-0 transition-transform">
+                            <div className="absolute top-32 right-8 bg-card border border-border p-4 rounded-lg shadow-lg transform -rotate-6 hover:rotate-0 transition-transform">
                                 <div className="w-28 h-16">
-                                    <div className="w-full h-2 bg-gray-400 rounded mb-2"></div>
-                                    <div className="w-2/3 h-1 bg-gray-200 rounded mb-1"></div>
-                                    <div className="w-full h-1 bg-gray-200 rounded"></div>
+                                    <div className="w-full h-2 bg-muted rounded mb-2"></div>
+                                    <div className="w-2/3 h-1 bg-muted-foreground/20 rounded mb-1"></div>
+                                    <div className="w-full h-1 bg-muted-foreground/20 rounded"></div>
                                 </div>
                             </div>
 
-                            <div className="absolute bottom-16 left-16 bg-white p-4 rounded-lg shadow-lg border border-gray-200 transform rotate-6 hover:rotate-12 transition-transform">
+                            <div className="absolute bottom-16 left-16 bg-card border border-border p-4 rounded-lg shadow-lg transform rotate-6 hover:rotate-12 transition-transform">
                                 <div className="w-36 h-24">
-                                    <div className="w-full h-2 bg-gray-500 rounded mb-2"></div>
-                                    <div className="w-5/6 h-1 bg-gray-200 rounded mb-1"></div>
-                                    <div className="w-full h-1 bg-gray-200 rounded mb-1"></div>
-                                    <div className="w-3/4 h-1 bg-gray-200 rounded"></div>
+                                    <div className="w-full h-2 bg-muted rounded mb-2"></div>
+                                    <div className="w-5/6 h-1 bg-muted-foreground/20 rounded mb-1"></div>
+                                    <div className="w-full h-1 bg-muted-foreground/20 rounded mb-1"></div>
+                                    <div className="w-3/4 h-1 bg-muted-foreground/20 rounded"></div>
                                 </div>
                             </div>
 
-                            {/* Central illustration */}
-                            <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 p-8 mx-auto max-w-md">
+                            {/* Central illustration - Dark mode compatible */}
+                            <div className="bg-card rounded-2xl shadow-2xl border border-border p-8 mx-auto max-w-md">
                                 <div className="space-y-4">
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-                                        <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
-                                        <div className="w-3 h-3 bg-gray-600 rounded-full"></div>
+                                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                                     </div>
                                     <div className="space-y-3">
-                                        <div className="w-full h-3 bg-gray-200 rounded"></div>
-                                        <div className="w-4/5 h-2 bg-gray-100 rounded"></div>
-                                        <div className="w-full h-2 bg-gray-100 rounded"></div>
-                                        <div className="w-3/4 h-2 bg-gray-100 rounded"></div>
-                                        <div className="w-full h-2 bg-gray-100 rounded"></div>
-                                        <div className="w-2/3 h-2 bg-gray-100 rounded"></div>
+                                        <div className="w-full h-3 bg-muted rounded"></div>
+                                        <div className="w-4/5 h-2 bg-muted-foreground/20 rounded"></div>
+                                        <div className="w-full h-2 bg-muted-foreground/20 rounded"></div>
+                                        <div className="w-3/4 h-2 bg-muted-foreground/20 rounded"></div>
+                                        <div className="w-full h-2 bg-muted-foreground/20 rounded"></div>
+                                        <div className="w-2/3 h-2 bg-muted-foreground/20 rounded"></div>
                                     </div>
-                                    <div className="mt-6 pt-4 border-t border-gray-100">
+                                    <div className="mt-6 pt-4 border-t border-border">
                                         <div className="flex gap-2">
-                                            <div className="w-8 h-6 bg-gray-200 rounded"></div>
-                                            <div className="w-8 h-6 bg-gray-300 rounded"></div>
-                                            <div className="w-8 h-6 bg-gray-400 rounded"></div>
+                                            <div className="w-8 h-6 bg-muted rounded"></div>
+                                            <div className="w-8 h-6 bg-muted-foreground/30 rounded"></div>
+                                            <div className="w-8 h-6 bg-muted-foreground/40 rounded"></div>
                                         </div>
                                     </div>
                                 </div>

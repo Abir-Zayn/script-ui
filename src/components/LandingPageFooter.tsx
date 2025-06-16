@@ -5,7 +5,7 @@ const Footer = () => {
                 <div className="grid md:grid-cols-4 gap-8">
                     <div className="col-span-1 md:col-span-2">
                         <h3 className="text-2xl font-bold mb-4">
-                            Quick<span className="text-gray-400">Notes</span>
+                            Script<span className="text-orange-400">UI</span>
                         </h3>
                         <p className="text-gray-400 mb-4 max-w-md">
                             Transform your chaotic thoughts into organized notes. Simple, powerful, and designed for the way you think.

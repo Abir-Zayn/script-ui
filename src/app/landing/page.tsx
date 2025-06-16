@@ -5,6 +5,7 @@ import LandingPageCard from '@/components/landingPageCard'
 import Footer from '@/components/LandingPageFooter'
 import { getUser } from '@/auth/server'
 
+//Landing page anatomy
 export default async function LandingPage() {
     const user = await getUser()
 
