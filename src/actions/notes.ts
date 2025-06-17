@@ -4,14 +4,24 @@ import { getUser } from "@/auth/server";
 import { prisma } from "@/db/prisma";
 import { handleError } from "@/lib/utils";
 
-export const updateNoteAction = async (noteId: string, heading: string, text: string) => {
+export const updateNoteAction = async (
+    noteId: string,
+    heading: string,
+    text: string,
+    coverImage?: string | null
+) => {
     try {
         const user = await getUser();
         if (!user) {
             throw new Error('User not authenticated');
         }
 
-        console.log('Upserting note:', { noteId, heading, text: text.substring(0, 50) + '...' });
+        console.log('Upserting note:', {
+            noteId,
+            heading,
+            text: text.substring(0, 50) + '...',
+            coverImage
+        });
 
         const note = await prisma.note.upsert({
             where: {
@@ -20,13 +30,15 @@ export const updateNoteAction = async (noteId: string, heading: string, text: st
             update: {
                 heading: heading.trim() || null,
                 text: text,
+                coverImage: coverImage || null,
                 updatedAt: new Date()
             },
             create: {
                 id: noteId,
                 authorId: user.id,
                 heading: heading.trim() || null,
-                text: text
+                text: text,
+                coverImage: coverImage || null
             }
         });
 
@@ -38,19 +50,20 @@ export const updateNoteAction = async (noteId: string, heading: string, text: st
     }
 }
 
-export const createNoteAction = async (noteId: string) => {
+export const createNoteAction = async (noteId: string, coverImage?: string | null) => {
     try {
         const user = await getUser();
         if (!user) {
             throw new Error('User not authenticated');
         }
-        // Update the note in the database
+
         await prisma.note.create({
             data: {
                 id: noteId,
                 authorId: user.id,
-                heading: null, // Start with no heading
+                heading: null,
                 text: "",
+                coverImage: coverImage || null, // Add coverImage field
             },
         });
 
@@ -66,11 +79,11 @@ export const deleteNoteAction = async (noteId: string) => {
         if (!user) {
             throw new Error('User not authenticated to delete note');
         }
-        // Update the note in the database
+
         await prisma.note.delete({
             where: {
                 id: noteId,
-                authorId: user.id, // Ensure user owns the note
+                authorId: user.id,
             },
         });
 
@@ -79,4 +92,3 @@ export const deleteNoteAction = async (noteId: string) => {
         return handleError(error);
     }
 }
-

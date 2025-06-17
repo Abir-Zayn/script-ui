@@ -11,7 +11,8 @@ export default async function LandingPage() {
 
     return (
         <div className="min-h-screen">
-            <Header user={user} />
+            {/* Pass showSidebar=false for landing page */}
+            <Header user={user} showSidebar={false} />
             <main>
                 <Hero />
                 <Features />

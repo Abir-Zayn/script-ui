@@ -13,11 +13,24 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Check if user exists first
+        const userExists = await prisma.user.findUnique({
+            where: { id: userId }
+        });
+
+        if (!userExists) {
+            return NextResponse.json(
+                { error: "User not found" },
+                { status: 404 }
+            );
+        }
+
         const { id } = await prisma.note.create({
             data: {
                 authorId: userId,
-                heading: null, // Add this missing field
+                heading: null,
                 text: "",
+                coverImage: null, // Add the missing coverImage field
             },
         });
 

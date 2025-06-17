@@ -8,20 +8,21 @@ generator client {
 }
 
 model Note {
-  id        String     @id @default(uuid())
-  heading   String?
-  text      String
-  author    User   @relation(fields: [authorId], references: [id])
-  authorId  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt @default(now())
+  id          String     @id @default(uuid())
+  heading     String?
+  text        String
+  coverImage  String?    // This field should be here
+  author      User       @relation(fields: [authorId], references: [id])
+  authorId    String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt @default(now())
 }
 
 model User {
-  id    String     @id @default(uuid())
-  email String  @unique
-  name  String?
-  notes Note[]
+  id        String     @id @default(uuid())
+  email     String     @unique
+  name      String?
+  notes     Note[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt @default(now())
 }

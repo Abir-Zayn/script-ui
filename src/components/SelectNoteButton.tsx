@@ -1,9 +1,10 @@
+'use client'
 import { Note } from '@prisma/client'
 import { SidebarMenuButton } from './ui/sidebar'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 type Props = {
-    note: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId'>
+    note: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId' | 'coverImage'>
 }
 
 /**

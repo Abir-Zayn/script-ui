@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useState } from 'react'
-import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'; // Fix: Use next/navigation instead of next/router
+import { useRouter } from 'next/navigation';
 import { logoutAction } from '@/actions/user';
-import { toast } from 'sonner'; // Fix: Import toast correctly
+import { toast } from 'sonner';
 
 function LogoutButton() {
     const router = useRouter();
-    const [loading, setLoading] = useState(false); // Fix: Initial state should be false
+    const [loading, setLoading] = useState(false);
 
     const handleLogOut = async () => {
         setLoading(true);
@@ -18,13 +17,11 @@ function LogoutButton() {
             const { errorMessage } = await logoutAction();
 
             if (!errorMessage) {
-                // Fix: Use toast correctly
                 toast.success("Logout Successful", {
                     description: "You have been logged out successfully.",
                 });
-                router.push("/"); // Redirect to home page after logout
+                router.push("/landing"); // Redirect to landing page after logout
             } else {
-                // Fix: Use toast correctly
                 toast.error("Logout Failed", {
                     description: errorMessage,
                 });
@@ -39,14 +36,13 @@ function LogoutButton() {
     }
 
     return (
-        <Button
-            className="w-24"
-            variant="outline"
+        <button
+            className="w-full text-left flex items-center gap-2"
             disabled={loading}
             onClick={handleLogOut}
         >
-            {loading ? <Loader2 className="animate-spin" /> : "Logout"}
-        </Button>
+            {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>Logout</span>}
+        </button>
     );
 }
 

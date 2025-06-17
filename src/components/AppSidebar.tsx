@@ -12,6 +12,9 @@ import { Note } from "@prisma/client";
 import Link from "next/link";
 import SidebarGroupContent from "./SidebarGroupContent";
 
+// Create a custom type for sidebar notes
+type SidebarNote = Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId' | 'coverImage'>;
+
 /**
  * AppSidebar Component
  * 
@@ -29,25 +32,25 @@ async function AppSidebar() {
     const user = await getUser();
 
     // Initialize empty notes array for type safety
-    let notes: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId'>[] = [];
+    let notes: SidebarNote[] = [];
 
     // Only fetch notes if user is authenticated
     if (user) {
         // Fetch user's notes from database, ordered by most recently updated
         notes = await prisma.note.findMany({
             where: {
-                authorId: user.id, // Only get notes belonging to this user
+                authorId: user.id,
             },
             select: {
-                // Only select required fields for performance
                 id: true,
                 heading: true,
+                coverImage: true,
                 createdAt: true,
                 updatedAt: true,
                 authorId: true,
             },
             orderBy: {
-                updatedAt: 'desc', // Show most recently updated notes first
+                updatedAt: 'desc',
             },
         })
     }

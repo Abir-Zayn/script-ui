@@ -31,8 +31,8 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange={true}
         >
-          <NoteProvider>
-            {
+          {/* <NoteProvider> */}
+            {/* {
               user ? (
                 <SidebarProvider>
                   <AppSidebar />
@@ -50,8 +50,17 @@ export default async function RootLayout({
                 </div>
               )
 
-            }
-          </NoteProvider>
+            } */}
+            
+            <NoteProvider>
+              {/* Simple layout for all pages - no sidebar */}
+              <div className="min-h-screen">
+                {children}
+                <Toaster />
+              </div>
+            </NoteProvider>
+
+          {/* </NoteProvider> */}
         </ThemeProvider>
       </body>
     </html>

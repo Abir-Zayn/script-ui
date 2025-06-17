@@ -9,7 +9,7 @@ import SelectNoteButton from './SelectNoteButton';
 import DeleteNoteButton from './DeleteNoteButton';
 
 type Props = {
-  notes: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId'>[];
+    notes: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId' | 'coverImage'>[];
 }
 
 /**

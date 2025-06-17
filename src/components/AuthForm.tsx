@@ -15,15 +15,13 @@ type Props = {
 }
 
 function AuthForm({ type }: Props) {
-    const isLoginForm = type === 'login'; // Determine if the form is for login or signup
+    const isLoginForm = type === 'login';
     const router = useRouter();
 
-    // useTransition hook for managing pending state during form submission
     const [isPending, startTransition] = useTransition();
 
     const handleSubmit = (formData: FormData) => {
         startTransition(async () => {
-            // Extract form data
             const email = formData.get('email') as string;
             const password = formData.get('password') as string;
 
@@ -31,7 +29,6 @@ function AuthForm({ type }: Props) {
             let title;
             let description;
 
-            // perform login or signup action based on the form type
             if (isLoginForm) {
                 errorMessage = (await loginAction(email, password)).errorMessage;
                 title = 'Logged in successfully';
@@ -43,13 +40,12 @@ function AuthForm({ type }: Props) {
             }
 
             if (!errorMessage) {
-                // Show a success notification
                 toast.success(title, {
                     description,
                 });
+                // Navigate to main dashboard instead of homePage
                 router.replace("/");
             } else {
-                // Show an error notification
                 toast.error(title, {
                     description: errorMessage,
                 });
@@ -57,10 +53,7 @@ function AuthForm({ type }: Props) {
         });
     }
 
-
     return (
-        // Form for login or signup
-        // Uses handleSubmit to manage form submission
         <form action={handleSubmit}>
             <CardContent className='space-y-4 pt-0'>
                 <div className='space-y-2'>
@@ -100,7 +93,6 @@ function AuthForm({ type }: Props) {
                         isLoginForm ? 'Sign In' : 'Create Account'
                     )}
                 </Button>
-                {/* Link to switch between login/signup */}
                 <p className='text-sm text-center text-muted-foreground'>
                     {isLoginForm ? "Don't have an account?" : "Already have an account?"}{" "}
                     <Link
@@ -112,7 +104,6 @@ function AuthForm({ type }: Props) {
                 </p>
             </CardFooter>
         </form>
-
     )
 }
 

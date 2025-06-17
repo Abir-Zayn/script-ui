@@ -16,7 +16,6 @@ function NewNoteButton({ user }: Props) {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
-
     const handleClickNewNoteButton = async () => {
         if (!user) {
             router.push("/login");
@@ -28,8 +27,8 @@ function NewNoteButton({ user }: Props) {
                 const { errorMessage } = await createNoteAction(uuid);
 
                 if (!errorMessage) {
-                    // Fix: Remove the extra "/" before UUID
-                    router.push(`/?noteId=${uuid}`); 
+                    // Navigate to main dashboard with noteId parameter
+                    router.push(`/?noteId=${uuid}`);
                     toast.success("New note created successfully", {
                         description: "You can start writing your note now.",
                     });
@@ -49,11 +48,12 @@ function NewNoteButton({ user }: Props) {
     return (
         <Button
             onClick={handleClickNewNoteButton}
-            variant="secondary"
-            className="w-24"
+            variant="default"
+            className="w-full"
             disabled={loading}
         >
-            {loading ? <Loader2 className="animate-spin" /> : "New Note"}
+            {loading ? <Loader2 className="animate-spin mr-2" /> : null}
+            {loading ? "Creating..." : "New Note"}
         </Button>
     )
 }
