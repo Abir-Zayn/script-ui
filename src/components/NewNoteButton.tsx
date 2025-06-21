@@ -27,8 +27,8 @@ function NewNoteButton({ user }: Props) {
                 const { errorMessage } = await createNoteAction(uuid);
 
                 if (!errorMessage) {
-                    // Navigate to main dashboard with noteId parameter
-                    router.push(`/?noteId=${uuid}`);
+                    // Navigate to a dedicated dashboard with the new note
+                    router.push(`/dashboard?noteId=${uuid}`);
                     toast.success("New note created successfully", {
                         description: "You can start writing your note now.",
                     });

@@ -6,12 +6,11 @@ import { DarkModeToggle } from './DarkModeToggle';
 import LogoutButton from './LogoutButton';
 import Image from 'next/image';
 import Link from 'next/link';
-import { User, ChevronDown, LogOut, Settings } from 'lucide-react';
+import { User, ChevronDown, LogOut } from 'lucide-react';
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -85,7 +84,8 @@ function Header({ user, showSidebar = false }: Props) {
 
                         {/* Logo - Clickable and navigates to landing page */}
                         <Link
-                            href="/landing"
+                            href={user ? '/homePage' : '/landing'}
+                            
                             className={`
                                 flex items-center transition-all duration-300 ease-in-out hover:opacity-80
                                 ${isScrolled ? 'opacity-0 translate-x-[-20px]' : 'opacity-100 translate-x-0'}
@@ -164,32 +164,7 @@ function Header({ user, showSidebar = false }: Props) {
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end" className="w-56">
-                                    <DropdownMenuLabel className="font-normal">
-                                        <div className="flex flex-col space-y-1">
-                                            <p className="text-sm font-medium leading-none">
-                                                {user.email?.split('@')[0]}
-                                            </p>
-                                            <p className="text-xs leading-none text-muted-foreground">
-                                                {user.email}
-                                            </p>
-                                        </div>
-                                    </DropdownMenuLabel>
                                     <DropdownMenuSeparator />
-
-                                    {/* Navigation items for authenticated users */}
-                                    <DropdownMenuItem asChild>
-                                        <Link href="/landing" className="flex items-center w-full">
-                                            <User className="mr-2 h-4 w-4" />
-                                            <span>Home</span>
-                                        </Link>
-                                    </DropdownMenuItem>
-                                    <DropdownMenuItem>
-                                        <Settings className="mr-2 h-4 w-4" />
-                                        <span>Settings</span>
-                                    </DropdownMenuItem>
-
-                                    <DropdownMenuSeparator />
-
                                     {/* Logout option */}
                                     <DropdownMenuItem asChild>
                                         <div className="w-full">

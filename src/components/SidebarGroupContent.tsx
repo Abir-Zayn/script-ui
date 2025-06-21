@@ -9,7 +9,7 @@ import SelectNoteButton from './SelectNoteButton';
 import DeleteNoteButton from './DeleteNoteButton';
 
 type Props = {
-    notes: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId' | 'coverImage'>[];
+  notes: Pick<Note, 'id' | 'heading' | 'createdAt' | 'updatedAt' | 'authorId' | 'coverImage'>[];
 }
 
 /**
@@ -79,16 +79,16 @@ function SidebarGroupContent({ notes }: Props) {
         {filteredNotes.map((note) => (
           <SidebarMenuItem
             key={note.id}
-            className='group/item px-2 py-1 rounded-md hover:bg-muted/50 transition-colors duration-200'
+            className='group/item relative px-2 py-1 rounded-md hover:bg-muted/50 transition-colors duration-200'
           >
-            {/* Note Selection Button - Main clickable area */}
             <div className="flex items-center w-full">
-              <div className="flex-1 min-w-0"> {/* min-w-0 allows text truncation */}
+              {/* Main note button */}
+              <div className="flex-1">
                 <SelectNoteButton note={note} />
               </div>
 
-              {/* Delete Button - Shows on hover */}
-              <div className="ml-2 opacity-0 group-hover/item:opacity-100 transition-opacity duration-200">
+              {/* Delete button - Always visible instead of on hover */}
+              <div className="flex-shrink-0 flex items-center justify-center">
                 <DeleteNoteButton
                   noteId={note.id}
                   deleteNoteLocally={deleteNoteLocally}
@@ -96,6 +96,7 @@ function SidebarGroupContent({ notes }: Props) {
               </div>
             </div>
           </SidebarMenuItem>
+
         ))}
 
         {/* Empty State Message */}

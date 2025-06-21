@@ -1,5 +1,4 @@
-import HomePageView from "../components/HomePageView";
-
+import HomePageView from "./components/HomePageView";
 
 /**
  * HomePage Route - Card-based notes view

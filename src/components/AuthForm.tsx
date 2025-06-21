@@ -43,8 +43,8 @@ function AuthForm({ type }: Props) {
                 toast.success(title, {
                     description,
                 });
-                // Navigate to main dashboard instead of homePage
-                router.replace("/");
+                // Navigate to HomePage (card view) after successful auth
+                router.replace("/homePage");
             } else {
                 toast.error(title, {
                     description: errorMessage,

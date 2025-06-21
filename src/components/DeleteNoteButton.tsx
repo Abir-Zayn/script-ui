@@ -55,11 +55,13 @@ function DeleteNoteButton({ noteId, deleteNoteLocally }: Props) {
 
     return (
         <AlertDialog>
-            <AlertDialogTrigger asChild >
-                <Button className="absolute right-2 top-1/2 -translate-y-1/2 size-7 p-0 opacity-0 
-                group-hover/item:opacity-100 [&_svg]:size-3"
-                    variant={"ghost"}
-                > <Trash2 /> </Button>
+            <AlertDialogTrigger asChild>
+                <Button
+                    className="size-7 p-0 [&_svg]:size-3"
+                    variant="ghost"
+                >
+                    <Trash2 />
+                </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
